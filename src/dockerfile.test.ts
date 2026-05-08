@@ -134,6 +134,9 @@ describe("Dockerfile", () => {
       "COPY --from=runtime-assets --chown=node:node /app/node_modules ./node_modules",
     );
     expect(dockerfile).toContain(
+      "COPY --from=runtime-assets --chown=node:node /app/pnpm-workspace.yaml .",
+    );
+    expect(dockerfile).toContain(
       "COPY --from=runtime-assets --chown=node:node /app/patches ./patches",
     );
   });
@@ -145,6 +148,9 @@ describe("Dockerfile", () => {
     };
 
     expect(Object.keys(packageJson.pnpm?.patchedDependencies ?? {})).not.toHaveLength(0);
+    expect(dockerfile).toContain(
+      "COPY --from=runtime-assets --chown=node:node /app/pnpm-workspace.yaml .",
+    );
     expect(dockerfile).toContain(
       "COPY --from=runtime-assets --chown=node:node /app/patches ./patches",
     );
